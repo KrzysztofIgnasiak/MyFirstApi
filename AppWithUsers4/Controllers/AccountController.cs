@@ -425,9 +425,12 @@ namespace AppWithUsers4.Controllers
             {
                 return NotFound();
             }
-            CustomerContext.Users.Single(u => u.Id == id).IsDeleted = true;
-            CustomerContext.SaveChanges();
-            return Ok();
+            else
+            {
+                CustomerContext.Users.Single(u => u.Id == id).IsDeleted = true;
+                CustomerContext.SaveChanges();
+                return Ok();
+            }
         }
 
         #endregion 
