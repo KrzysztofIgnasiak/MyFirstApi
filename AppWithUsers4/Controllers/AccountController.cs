@@ -16,6 +16,7 @@ using Microsoft.Owin.Security.OAuth;
 using AppWithUsers4.Models;
 using AppWithUsers4.Providers;
 using AppWithUsers4.Results;
+using System.Linq;
 
 namespace AppWithUsers4.Controllers
 {
@@ -388,7 +389,23 @@ namespace AppWithUsers4.Controllers
 
             base.Dispose(disposing);
         }
+        #region WorkingWithUsers
+        private ApplicationDbContext CustomerContext = new ApplicationDbContext();
 
+        // Get /Account/1
+        [HttpGet]
+        public IHttpActionResult GetUser(string id)
+        {
+            var user = CustomerContext.Users.SingleOrDefault(u => u.Id == id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+        #endregion 
         #region Pomocnicy
 
         private IAuthenticationManager Authentication
