@@ -126,7 +126,7 @@ namespace AppWithUsers4.Controllers
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -259,9 +259,9 @@ namespace AppWithUsers4.Controllers
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                   OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
@@ -329,7 +329,7 @@ namespace AppWithUsers4.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, NameOfUser =model.NameOfUser,Surname = model.Surname,DateofBirth=model.DateOfBirth };
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, NameOfUser = model.NameOfUser, Surname = model.Surname, DateofBirth = model.DateOfBirth };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
             var Rolestore = new RoleStore<IdentityRole>(new ApplicationDbContext());
@@ -374,7 +374,7 @@ namespace AppWithUsers4.Controllers
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result); 
+                return GetErrorResult(result);
             }
             return Ok();
         }
@@ -396,7 +396,7 @@ namespace AppWithUsers4.Controllers
         [HttpGet]
         public IHttpActionResult GetUser(string id)
         {
-            var user = CustomerContext.Users.SingleOrDefault(u => u.Id == id);
+            var user = CustomerContext.Users.Single(u => u.Id == id);
 
             if (user == null || user.IsDeleted == true)
             {
@@ -412,8 +412,24 @@ namespace AppWithUsers4.Controllers
 
                 return Ok(model);
             }
-            //return Ok(user);
+
         }
+        // DELETE/Account/1
+        [HttpDelete]
+        [Authorize(Roles = "admin")]
+        public IHttpActionResult DeleteUser(string id)
+        {
+           ApplicationUser UserToDelete = CustomerContext.Users.Single(u => u.Id == id);
+
+            if (UserToDelete == null || UserToDelete.IsDeleted == true)
+            {
+                return NotFound();
+            }
+            CustomerContext.Users.Single(u => u.Id == id).IsDeleted = true;
+            CustomerContext.SaveChanges();
+            return Ok();
+        }
+
         #endregion 
         #region Pomocnicy
 
