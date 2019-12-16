@@ -92,4 +92,14 @@ namespace AppWithUsers4.Models
         [Compare("NewPassword", ErrorMessage = "Nowe hasło i jego potwierdzenie są niezgodne.")]
         public string ConfirmPassword { get; set; }
     }
+
+    public class DisplayBindingModel
+    {
+        public string NameOfUser { get; set; }
+        public string Surname { get; set; }
+
+        public DateTime DateofBirth { get; set; }
+        public string Email { get; set; }
+        
+    }
 }

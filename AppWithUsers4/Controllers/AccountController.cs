@@ -398,12 +398,21 @@ namespace AppWithUsers4.Controllers
         {
             var user = CustomerContext.Users.SingleOrDefault(u => u.Id == id);
 
-            if (user == null)
+            if (user == null || user.IsDeleted == true)
             {
                 return NotFound();
             }
+            else
+            {
+                DisplayBindingModel model = new DisplayBindingModel();
+                model.NameOfUser = user.NameOfUser;
+                model.Surname = user.Surname;
+                model.DateofBirth = user.DateofBirth;
+                model.Email = user.Email;
 
-            return Ok(user);
+                return Ok(model);
+            }
+            //return Ok(user);
         }
         #endregion 
         #region Pomocnicy
