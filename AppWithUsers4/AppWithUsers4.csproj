@@ -206,6 +206,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -219,10 +220,17 @@
     <Compile Include="Migrations\201912161743497_setting constrains.Designer.cs">
       <DependentUpon>201912161743497_setting constrains.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912170823049_adding Companies and Industries.cs" />
+    <Compile Include="Migrations\201912170823049_adding Companies and Industries.Designer.cs">
+      <DependentUpon>201912170823049_adding Companies and Industries.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Industry.cs" />
     <Compile Include="Models\PagingParameterModel.cs" />
     <Compile Include="Models\RoleName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -324,6 +332,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912161743497_setting constrains.resx">
       <DependentUpon>201912161743497_setting constrains.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912170823049_adding Companies and Industries.resx">
+      <DependentUpon>201912170823049_adding Companies and Industries.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

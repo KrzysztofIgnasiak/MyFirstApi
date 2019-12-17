@@ -25,22 +25,5 @@ namespace AppWithUsers4.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
-         protected override void OnModelCreating(DbModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-            builder.Entity<ApplicationUser>().Property(u => u.NameOfUser).HasMaxLength(50);
-            builder.Entity<ApplicationUser>().Property(u => u.Surname).HasMaxLength(50);
-        }
-
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
-    }
+    
 }
