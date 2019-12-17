@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http;
-using System.Web.Http.ModelBinding;
+﻿using AppWithUsers4.Models;
+using AppWithUsers4.Providers;
+using AppWithUsers4.Results;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using AppWithUsers4.Models;
-using AppWithUsers4.Providers;
-using AppWithUsers4.Results;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Http;
 
 namespace AppWithUsers4.Controllers
 {
@@ -392,34 +391,72 @@ namespace AppWithUsers4.Controllers
         #region WorkingWithUsers
         private ApplicationDbContext CustomerContext = new ApplicationDbContext();
 
+        //Get /Account
+        [HttpGet]
+        public IHttpActionResult GetUsers([FromUri]PagingParameterModel Paging)
+        {
+            if (Paging.PageNumber <= 0)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                var Users = CustomerContext.Users.
+                    OrderBy(u => u.UserName)
+                    .AsQueryable()
+                    .Skip((Paging.PageNumber - 1) * Paging.PageSize)
+                    .Take(Paging.PageSize).ToList();
+               
+                List<ApplicationUser> AppUsers = Users.ToList();
+                List<DisplayBindingModel> Models = new List<DisplayBindingModel>();
+
+                foreach(ApplicationUser User in AppUsers)
+                {
+                    DisplayBindingModel Model = new DisplayBindingModel();
+
+                    if (User.IsDeleted == false)
+                    {
+                        Model.NameOfUser = User.NameOfUser;
+                        Model.Surname = User.Surname;
+                        Model.DateofBirth = User.DateofBirth;
+                        Model.Email = User.Email;
+
+                        Models.Add(Model);
+                    }
+                }
+
+                return Ok(Models);
+            }
+        }
+
         // Get /Account/1
         [HttpGet]
-        public IHttpActionResult GetUser(string id)
+        public IHttpActionResult GetUser(string Id)
         {
-            var user = CustomerContext.Users.Single(u => u.Id == id);
+            var User = CustomerContext.Users.Single(u => u.Id == Id);
 
-            if (user == null || user.IsDeleted == true)
+            if (User == null || User.IsDeleted == true)
             {
                 return NotFound();
             }
             else
             {
-                DisplayBindingModel model = new DisplayBindingModel();
-                model.NameOfUser = user.NameOfUser;
-                model.Surname = user.Surname;
-                model.DateofBirth = user.DateofBirth;
-                model.Email = user.Email;
+                DisplayBindingModel Model = new DisplayBindingModel();
+                Model.NameOfUser = User.NameOfUser;
+                Model.Surname = User.Surname;
+                Model.DateofBirth = User.DateofBirth;
+                Model.Email = User.Email;
 
-                return Ok(model);
+                return Ok(Model);
             }
 
         }
         // DELETE/Account/1
         [HttpDelete]
         [Authorize(Roles = "admin")]
-        public IHttpActionResult DeleteUser(string id)
+        public IHttpActionResult DeleteUser(string Id)
         {
-           ApplicationUser UserToDelete = CustomerContext.Users.Single(u => u.Id == id);
+           ApplicationUser UserToDelete = CustomerContext.Users.Single(u => u.Id == Id);
 
             if (UserToDelete == null || UserToDelete.IsDeleted == true)
             {
@@ -427,7 +464,7 @@ namespace AppWithUsers4.Controllers
             }
             else
             {
-                CustomerContext.Users.Single(u => u.Id == id).IsDeleted = true;
+                CustomerContext.Users.Single(u => u.Id == Id).IsDeleted = true;
                 CustomerContext.SaveChanges();
                 return Ok();
             }
@@ -435,7 +472,7 @@ namespace AppWithUsers4.Controllers
         
         //PUT//Account/1
         [HttpPut]
-        public IHttpActionResult UpdateUser(string Id, SetBindingModel model)
+        public IHttpActionResult UpdateUser(string Id, SetBindingModel Model)
         {
             if (ModelState.IsValid == false)
             {
@@ -458,11 +495,11 @@ namespace AppWithUsers4.Controllers
             {
                 // ?? operator return left if it is not null and right side otherwise 
                 //https://docs.microsoft.com/pl-pl/dotnet/csharp/language-reference/operators/null-coalescing-operator#code-try-5
-                UsertoChange.UserName = model.UserName ?? UsertoChange.UserName;            
-                UsertoChange.NameOfUser = model.NameOfUser ?? UsertoChange.NameOfUser;
-                UsertoChange.Surname = model.Surname ?? UsertoChange.Surname;
-                UsertoChange.DateofBirth = model.DateofBirth ?? UsertoChange.DateofBirth; 
-                UsertoChange.Email = model.Email ?? UsertoChange.Email;
+                UsertoChange.UserName = Model.UserName ?? UsertoChange.UserName;            
+                UsertoChange.NameOfUser = Model.NameOfUser ?? UsertoChange.NameOfUser;
+                UsertoChange.Surname = Model.Surname ?? UsertoChange.Surname;
+                UsertoChange.DateofBirth = Model.DateofBirth ?? UsertoChange.DateofBirth; 
+                UsertoChange.Email = Model.Email ?? UsertoChange.Email;
 
                 CustomerContext.SaveChanges();
                 return Ok();
