@@ -32,6 +32,6 @@ namespace AppWithUsers4.Models
         public Industry IndustryType { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
-        public ApplicationUser userID { get; set; }
+        public string userID { get; set; }
     }
 }

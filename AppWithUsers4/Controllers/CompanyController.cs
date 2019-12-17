@@ -6,7 +6,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-
+using System.Data.Entity;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.OAuth;
+using System.Security.Claims;
+using System.Security.Cryptography;
 namespace AppWithUsers4.Controllers
 {
 
@@ -26,8 +34,8 @@ namespace AppWithUsers4.Controllers
             }
             else
             {
-                var Companies = CompanyContext.Companies.
-                    OrderBy(u => u.Name)
+                var Companies = CompanyContext.Companies
+                    .OrderBy(u => u.Name)
                     .AsQueryable()
                     .Skip((paging.PageNumber - 1) * paging.PageSize)
                     .Take(paging.PageSize).ToList();
@@ -43,7 +51,8 @@ namespace AppWithUsers4.Controllers
                         Model.IndustryType = Company.IndustryType;
                         Model.Address = Company.Address;
                         Model.City = Company.City;
-                        Model.userID = Company.userID;
+                        ApplicationUser userID = Company.userID;
+                        Model.userID = userID.Id.ToString();
 
                         Models.Add(Model);
                     }
@@ -57,7 +66,7 @@ namespace AppWithUsers4.Controllers
         [HttpGet]
         public IHttpActionResult GetCompany(int Id)
         {
-            var Company = CompanyContext.Companies.Single(c => c.Id == Id);
+            var Company = CompanyContext.Companies.Include(c=>c.userID).Single(c => c.Id == Id);
 
             if (Company == null || Company.IsDeleted == true)
             {
@@ -65,14 +74,16 @@ namespace AppWithUsers4.Controllers
             }
 
             else
-            {
+            { 
                 CompanyViewPublicModel Model = new CompanyViewPublicModel();
                 Model.Name = Company.Name;
                 Model.Nip = Company.Nip;
                 Model.IndustryType = Company.IndustryType;
                 Model.Address = Company.Address;
                 Model.City = Company.City;
-                Model.userID = Company.userID;
+                ApplicationUser userID = Company.userID;
+                Model.userID = userID.Id.ToString();
+ 
                 return Ok(Model);
             }
             
