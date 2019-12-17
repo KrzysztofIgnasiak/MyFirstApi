@@ -432,6 +432,45 @@ namespace AppWithUsers4.Controllers
                 return Ok();
             }
         }
+        
+        //PUT//Account/1
+        [HttpPut]
+        public IHttpActionResult UpdateUser(string Id, SetBindingModel model)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest("invalid data.");
+            }
+            string CurrentId = User.Identity.GetUserId();
+            if(Id !=CurrentId)
+            {
+                return BadRequest("You can change only your account");
+            }
+
+
+            ApplicationUser UsertoChange = CustomerContext.Users.Single(u => u.Id == Id);
+
+            if (UsertoChange == null || UsertoChange.IsDeleted == true)
+            {
+                return NotFound();
+            }
+            else
+            {
+                // ?? operator return left if it is not null and right side otherwise 
+                //https://docs.microsoft.com/pl-pl/dotnet/csharp/language-reference/operators/null-coalescing-operator#code-try-5
+                UsertoChange.UserName = model.UserName ?? UsertoChange.UserName;            
+                UsertoChange.NameOfUser = model.NameOfUser ?? UsertoChange.NameOfUser;
+                UsertoChange.Surname = model.Surname ?? UsertoChange.Surname;
+                UsertoChange.DateofBirth = model.DateofBirth ?? UsertoChange.DateofBirth; 
+                UsertoChange.Email = model.Email ?? UsertoChange.Email;
+
+                CustomerContext.SaveChanges();
+                return Ok();
+            }
+          
+        }
+
+
 
         #endregion 
         #region Pomocnicy
