@@ -34,17 +34,17 @@ namespace AppWithUsers4.Controllers
             }
             else
             {
-                var Companies = CompanyContext.Companies
+                var Companies = CompanyContext.Companies.Where(c => c.IsDeleted == false)
                     .OrderBy(u => u.Name)
                     .AsQueryable()
                     .Skip((paging.PageNumber - 1) * paging.PageSize)
-                    .Take(paging.PageSize).ToList();
+                    .Take(paging.PageSize)
+                    .Include(c => c.userID)
+                    .ToList();
 
                 List<CompanyViewPublicModel> Models = new List<CompanyViewPublicModel>();
                 foreach(Company Company in Companies)
-                {
-                    if(Company.IsDeleted == false)
-                    {
+                { 
                         CompanyViewPublicModel Model = new CompanyViewPublicModel();
                         Model.Name = Company.Name;
                         Model.Nip = Company.Nip;
@@ -55,7 +55,6 @@ namespace AppWithUsers4.Controllers
                         Model.userID = userID.Id.ToString();
 
                         Models.Add(Model);
-                    }
                 }
 
                 return Ok(Models);
