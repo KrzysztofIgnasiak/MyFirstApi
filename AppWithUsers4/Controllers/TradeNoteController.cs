@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -27,12 +28,16 @@ namespace AppWithUsers4.Controllers
             }
             else
             {
-                List<TradeNote> TradeNotes = TradeNoteContext.TradeNotes.Where(t => t.CompanyId.Id == Company.Id).ToList();
+                List<TradeNote> TradeNotes = TradeNoteContext.TradeNotes.Where(t => t.CompanyId.Id == Company.Id).Include(t => t.UserId).ToList();
                 List<TradeNoteViewModel> Models = new List<TradeNoteViewModel>();
                 foreach(TradeNote Note in TradeNotes)
                 {
                     TradeNoteViewModel Model = new TradeNoteViewModel();
+                    Model.Id = Note.id;
                     Model.Text = Note.Text;
+                    ApplicationUser userID = Note.UserId;
+                    Model.UserId = userID.Id.ToString();
+
                     Models.Add(Model);
                 }
                 return Ok(Models);
