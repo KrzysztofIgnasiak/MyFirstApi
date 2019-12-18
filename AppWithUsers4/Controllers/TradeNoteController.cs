@@ -30,10 +30,10 @@ namespace AppWithUsers4.Controllers
             {
                 List<TradeNote> TradeNotes = TradeNoteContext.TradeNotes.Where(t => t.CompanyId.Id == Company.Id).Include(t => t.UserId).ToList();
                 List<TradeNoteViewModel> Models = new List<TradeNoteViewModel>();
-                foreach(TradeNote Note in TradeNotes)
+                foreach (TradeNote Note in TradeNotes)
                 {
                     TradeNoteViewModel Model = new TradeNoteViewModel();
-                    Model.Id = Note.id;
+                    Model.Id = Note.Id;
                     Model.Text = Note.Text;
                     ApplicationUser userID = Note.UserId;
                     Model.UserId = userID.Id.ToString();
@@ -46,7 +46,7 @@ namespace AppWithUsers4.Controllers
 
         // POST/api/TradeNote
         [HttpPost]
-        public IHttpActionResult CreateNote([FromBody]TradeNoteAddBindingModel Model)
+        public IHttpActionResult CreateNote([FromBody]TradeNoteAddUpdateBindingModel Model)
         {
             if (ModelState.IsValid == false)
             {
@@ -59,7 +59,7 @@ namespace AppWithUsers4.Controllers
             else
             {
                 Company Company = TradeNoteContext.Companies.SingleOrDefault(c => c.Id == Model.CompanyId);
-                if(Company == null || Company.IsDeleted == true)
+                if (Company == null || Company.IsDeleted == true)
                 {
                     return BadRequest("The company with this request doesn't exist");
                 }
@@ -76,5 +76,37 @@ namespace AppWithUsers4.Controllers
                 return Ok(NewNote);
             }
         }
+
+        [HttpPut]
+        // PUT/api/TradeNote/1
+        public IHttpActionResult UpdateNote(int Id, [FromBody]TradeNoteAddUpdateBindingModel Model)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest("invalid data.");
+            }
+            if (Model == null)
+            {
+                return BadRequest("no information about note was specified");
+            }
+
+            TradeNote Note = TradeNoteContext.TradeNotes.SingleOrDefault(c => c.Id == Id);
+            if (Note == null)
+            {
+                return BadRequest("note with this id does not exist");
+            }
+            Company Company = TradeNoteContext.Companies.SingleOrDefault(c => c.Id == Model.CompanyId);
+            if (Company.IsDeleted == true)
+            {
+                Company = null;
+            }
+           Note.Text = Model.Text?? Note.Text;
+           Note.CompanyId = Company ?? Note.CompanyId;
+           TradeNoteContext.SaveChanges();
+            return Ok();
+            
+        }
+
+
     }
 }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace AppWithUsers4.Models
 {
-    public class TradeNoteAddBindingModel
+    public class TradeNoteAddUpdateBindingModel
     {
         public string Text { get; set; }
 
@@ -19,4 +19,5 @@ namespace AppWithUsers4.Models
         
         public string UserId { get; set; }
     }
+
 }

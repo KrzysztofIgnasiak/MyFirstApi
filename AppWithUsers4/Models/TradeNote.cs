@@ -7,7 +7,7 @@ namespace AppWithUsers4.Models
 {
     public class TradeNote
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public string Text { get; set; }
 
         public bool IsDeleted { get; set; }
