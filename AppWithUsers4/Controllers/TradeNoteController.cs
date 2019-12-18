@@ -28,7 +28,10 @@ namespace AppWithUsers4.Controllers
             }
             else
             {
-                List<TradeNote> TradeNotes = TradeNoteContext.TradeNotes.Where(t => t.CompanyId.Id == Company.Id).Include(t => t.UserId).ToList();
+                List<TradeNote> TradeNotes = TradeNoteContext.TradeNotes
+                    .Where(t => t.CompanyId.Id == Company.Id && t.IsDeleted==false)
+                    .Include(t => t.UserId)
+                    .ToList();
                 List<TradeNoteViewModel> Models = new List<TradeNoteViewModel>();
                 foreach (TradeNote Note in TradeNotes)
                 {
