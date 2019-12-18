@@ -28,7 +28,14 @@ namespace AppWithUsers4.Controllers
             else
             {
                 List<TradeNote> TradeNotes = TradeNoteContext.TradeNotes.Where(t => t.CompanyId.Id == Company.Id).ToList();
-                return Ok(TradeNotes);
+                List<TradeNoteViewModel> Models = new List<TradeNoteViewModel>();
+                foreach(TradeNote Note in TradeNotes)
+                {
+                    TradeNoteViewModel Model = new TradeNoteViewModel();
+                    Model.Text = Note.Text;
+                    Models.Add(Model);
+                }
+                return Ok(Models);
             }
         }
 
