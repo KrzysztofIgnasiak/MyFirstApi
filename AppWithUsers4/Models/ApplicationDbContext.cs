@@ -32,6 +32,8 @@ namespace AppWithUsers4.Models
 
             builder.Entity<Industry>().Property(u => u.Name).IsRequired();
             builder.Entity<Industry>().Property(u => u.Name).HasMaxLength(50);
+
+           // builder.Entity<Industry>().HasMany(i => i.Companies).WithOptional(c => c.IndustryType);
         }
 
         public static ApplicationDbContext Create()
