@@ -10,7 +10,7 @@ namespace AppWithUsers4.Models
         public int id { get; set; }
         public string Text { get; set; }
 
-        public bool IsDeleted = false;
+        public bool IsDeleted { get; set; }
 
         public Company CompanyId { get; set; }
 

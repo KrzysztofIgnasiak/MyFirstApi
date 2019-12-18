@@ -230,6 +230,10 @@
     <Compile Include="Migrations\201912181502542_adding tradeNotes.Designer.cs">
       <DependentUpon>201912181502542_adding tradeNotes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912181751085_adding IsDeleted to TradeNote.cs" />
+    <Compile Include="Migrations\201912181751085_adding IsDeleted to TradeNote.Designer.cs">
+      <DependentUpon>201912181751085_adding IsDeleted to TradeNote.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -347,6 +351,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912181502542_adding tradeNotes.resx">
       <DependentUpon>201912181502542_adding tradeNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912181751085_adding IsDeleted to TradeNote.resx">
+      <DependentUpon>201912181751085_adding IsDeleted to TradeNote.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
