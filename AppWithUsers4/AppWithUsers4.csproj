@@ -225,10 +225,6 @@
     <Compile Include="Migrations\201912170823049_adding Companies and Industries.Designer.cs">
       <DependentUpon>201912170823049_adding Companies and Industries.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201912181437369_adding relationship between companies and Industry.cs" />
-    <Compile Include="Migrations\201912181437369_adding relationship between companies and Industry.Designer.cs">
-      <DependentUpon>201912181437369_adding relationship between companies and Industry.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -341,9 +337,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912170823049_adding Companies and Industries.resx">
       <DependentUpon>201912170823049_adding Companies and Industries.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912181437369_adding relationship between companies and Industry.resx">
-      <DependentUpon>201912181437369_adding relationship between companies and Industry.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

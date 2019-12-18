@@ -152,10 +152,14 @@ namespace AppWithUsers4.Controllers
             {
                 Company.Name = Model.Name ?? Company.Name;
                 Company.Nip = Model.Nip ?? Company.Nip;
-                Company.IndustryType = Model.IndustryType ?? Company.IndustryType;
+                //Company.IndustryType = Model.IndustryType ?? Company.IndustryType;
                 Company.Address = Model.Address?? Company.Address;
                 Company.City = Model.City ?? Company.City;
 
+                 if(Model.IndustryId != null)
+                {
+                    Company.IndustryType = CompanyContext.Industries.Single(i => i.Id == Model.IndustryId);
+                }
                 CompanyContext.SaveChanges();
                 return Ok();
             }
