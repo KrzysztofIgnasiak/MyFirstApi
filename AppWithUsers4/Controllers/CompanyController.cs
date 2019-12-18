@@ -41,6 +41,8 @@ namespace AppWithUsers4.Controllers
                     .Take(paging.PageSize)
                     .Include(c => c.userID)
                     .ToList();
+                     //.Include(c => c.IndustryType)
+
 
                 List<CompanyViewPublicModel> Models = new List<CompanyViewPublicModel>();
                 foreach(Company Company in Companies)
@@ -48,7 +50,7 @@ namespace AppWithUsers4.Controllers
                         CompanyViewPublicModel Model = new CompanyViewPublicModel();
                         Model.Name = Company.Name;
                         Model.Nip = Company.Nip;
-                        Model.IndustryType = Company.IndustryType;
+                        //Model.IndustryType = Company.IndustryType;
                         Model.Address = Company.Address;
                         Model.City = Company.City;
                         ApplicationUser userID = Company.userID;
@@ -66,6 +68,7 @@ namespace AppWithUsers4.Controllers
         public IHttpActionResult GetCompany(int Id)
         {
             var Company = CompanyContext.Companies.Include(c=>c.userID).Single(c => c.Id == Id);
+            //Include(c =>c.IndustryType)
 
             if (Company == null || Company.IsDeleted == true)
             {
@@ -77,7 +80,7 @@ namespace AppWithUsers4.Controllers
                 CompanyViewPublicModel Model = new CompanyViewPublicModel();
                 Model.Name = Company.Name;
                 Model.Nip = Company.Nip;
-                Model.IndustryType = Company.IndustryType;
+                //Model.IndustryType = Company.IndustryType;
                 Model.Address = Company.Address;
                 Model.City = Company.City;
                 ApplicationUser userID = Company.userID;
