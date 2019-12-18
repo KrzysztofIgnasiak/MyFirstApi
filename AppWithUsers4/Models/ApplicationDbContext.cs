@@ -12,6 +12,7 @@ namespace AppWithUsers4.Models
         public DbSet<Company> Companies { get; set; }
         public DbSet<Industry> Industries { get; set; }
         public DbSet<TradeNote> TradeNotes { get; set; }
+        public DbSet<ContactPerson> ContactPeople{ get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -39,6 +40,20 @@ namespace AppWithUsers4.Models
             //setting trade notes
             builder.Entity<TradeNote>().Property(u => u.Text).IsRequired();
             builder.Entity<Company>().HasMany(c => c.TradeNotes).WithOptional(t => t.CompanyId);
+
+            //setting max lenght of Contact Person columns
+            builder.Entity<ContactPerson>().Property(u => u.Name).HasMaxLength(50);
+            builder.Entity<ContactPerson>().Property(u => u.Surname).HasMaxLength(50);
+            builder.Entity<ContactPerson>().Property(u => u.Mail).HasMaxLength(50);
+            builder.Entity<ContactPerson>().Property(u => u.Position).HasMaxLength(100);
+
+            //setting properties of contact Person columns
+            builder.Entity<ContactPerson>().Property(u => u.Name).IsRequired();
+            builder.Entity<ContactPerson>().Property(u => u.Surname).IsRequired();
+            builder.Entity<ContactPerson>().Property(u => u.Mail).IsRequired();
+            builder.Entity<ContactPerson>().Property(u => u.Phone).IsOptional();
+
+            builder.Entity<Company>().HasMany(c => c.ContactPeople).WithOptional(t => t.CompanyId);
         }
 
         public static ApplicationDbContext Create()

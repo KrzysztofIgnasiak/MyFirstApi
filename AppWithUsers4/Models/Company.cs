@@ -18,7 +18,7 @@ namespace AppWithUsers4.Models
         public bool IsDeleted { get; set; }
 
         public List<TradeNote> TradeNotes{ get;set;}
+        public List<ContactPerson> ContactPeople{ get;set;}
 
-    
     }
 }

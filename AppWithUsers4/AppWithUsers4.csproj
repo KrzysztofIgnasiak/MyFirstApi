@@ -234,12 +234,17 @@
     <Compile Include="Migrations\201912181751085_adding IsDeleted to TradeNote.Designer.cs">
       <DependentUpon>201912181751085_adding IsDeleted to TradeNote.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912181839272_adding Contact Person.cs" />
+    <Compile Include="Migrations\201912181839272_adding Contact Person.Designer.cs">
+      <DependentUpon>201912181839272_adding Contact Person.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\CompanyBindingModel.cs" />
+    <Compile Include="Models\ContactPerson.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Industry.cs" />
     <Compile Include="Models\PagingParameterModel.cs" />
@@ -354,6 +359,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912181751085_adding IsDeleted to TradeNote.resx">
       <DependentUpon>201912181751085_adding IsDeleted to TradeNote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912181839272_adding Contact Person.resx">
+      <DependentUpon>201912181839272_adding Contact Person.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
