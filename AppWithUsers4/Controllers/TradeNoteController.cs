@@ -107,6 +107,22 @@ namespace AppWithUsers4.Controllers
             
         }
 
+        //DELETE /api/TradeNote/1
+        [HttpDelete]
+
+        public IHttpActionResult DeleteTradeNote(int Id)
+        {
+            TradeNote NoteToDelete = TradeNoteContext.TradeNotes.SingleOrDefault(t => t.Id == Id);
+
+            if (NoteToDelete == null || NoteToDelete.IsDeleted == true)
+            {
+                return NotFound();
+            }
+            TradeNoteContext.TradeNotes.Single(t => t.Id == Id).IsDeleted = true;
+            TradeNoteContext.SaveChanges();
+            return Ok();
+        }
+
 
     }
 }
