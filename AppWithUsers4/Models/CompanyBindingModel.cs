@@ -9,7 +9,7 @@ namespace AppWithUsers4.Models
     {
         public string Name { get; set; }
         public int Nip { get; set; }
-        public Industry IndustryType { get; set; }
+        public int? IndustryId { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
 

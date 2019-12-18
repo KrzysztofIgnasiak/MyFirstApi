@@ -107,7 +107,17 @@ namespace AppWithUsers4.Controllers
                 NewCompany.Address = Model.Address;
                 NewCompany.City = Model.City;
                 NewCompany.Nip = Model.Nip;
-               NewCompany.IndustryType = Model.IndustryType;
+                
+                if(Model.IndustryId == null)
+                {
+                    NewCompany.IndustryType = null;
+                }
+                else
+                {
+                    Industry CurrentIndustry = CompanyContext.Industries.SingleOrDefault(i => i.Id == Model.IndustryId);
+
+                    NewCompany.IndustryType = CurrentIndustry;
+                }
 
                 string UserId = User.Identity.GetUserId();
                 ApplicationUser AppUser = CompanyContext.Users.Single(u => u.Id == UserId); 
