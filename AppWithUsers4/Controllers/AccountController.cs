@@ -433,7 +433,7 @@ namespace AppWithUsers4.Controllers
         [HttpGet]
         public IHttpActionResult GetUser(string Id)
         {
-            var User = CustomerContext.Users.Single(u => u.Id == Id);
+            var User = CustomerContext.Users.SingleOrDefault(u => u.Id == Id);
 
             if (User == null || User.IsDeleted == true)
             {
@@ -456,7 +456,7 @@ namespace AppWithUsers4.Controllers
         [Authorize(Roles = "admin")]
         public IHttpActionResult DeleteUser(string Id)
         {
-           ApplicationUser UserToDelete = CustomerContext.Users.Single(u => u.Id == Id);
+           ApplicationUser UserToDelete = CustomerContext.Users.SingleOrDefault(u => u.Id == Id);
 
             if (UserToDelete == null || UserToDelete.IsDeleted == true)
             {
