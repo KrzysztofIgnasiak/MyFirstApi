@@ -40,6 +40,7 @@ namespace AppWithUsers4.Controllers
                     .Skip((paging.PageNumber - 1) * paging.PageSize)
                     .Take(paging.PageSize)
                     .Include(c => c.userID)
+                    .Include(c => c.IndustryType)
                     .ToList();
                      //.Include(c => c.IndustryType)
 
@@ -50,7 +51,7 @@ namespace AppWithUsers4.Controllers
                         CompanyViewPublicModel Model = new CompanyViewPublicModel();
                         Model.Name = Company.Name;
                         Model.Nip = Company.Nip;
-                        //Model.IndustryType = Company.IndustryType;
+                        Model.IndustryType = Company.IndustryType;
                         Model.Address = Company.Address;
                         Model.City = Company.City;
                         ApplicationUser userID = Company.userID;
@@ -67,8 +68,10 @@ namespace AppWithUsers4.Controllers
         [HttpGet]
         public IHttpActionResult GetCompany(int Id)
         {
-            var Company = CompanyContext.Companies.Include(c=>c.userID).Single(c => c.Id == Id);
-            //Include(c =>c.IndustryType)
+            var Company = CompanyContext.Companies.Include(c=>c.userID)
+                .Include(c => c.IndustryType)
+                .SingleOrDefault(c => c.Id == Id);
+            
 
             if (Company == null || Company.IsDeleted == true)
             {
@@ -80,7 +83,7 @@ namespace AppWithUsers4.Controllers
                 CompanyViewPublicModel Model = new CompanyViewPublicModel();
                 Model.Name = Company.Name;
                 Model.Nip = Company.Nip;
-                //Model.IndustryType = Company.IndustryType;
+                Model.IndustryType = Company.IndustryType;
                 Model.Address = Company.Address;
                 Model.City = Company.City;
                 ApplicationUser userID = Company.userID;
@@ -141,7 +144,7 @@ namespace AppWithUsers4.Controllers
                 return BadRequest("invalid data.");
             }
 
-            var Company = CompanyContext.Companies.Single(c => c.Id == Id);
+            var Company = CompanyContext.Companies.SingleOrDefault(c => c.Id == Id);
 
             if (Company == null || Company.IsDeleted == true)
             {
@@ -171,7 +174,7 @@ namespace AppWithUsers4.Controllers
 
         public IHttpActionResult DeleteCompany(int Id)
         {
-            Company CompanyToDelete = CompanyContext.Companies.Single(c => c.Id == Id);
+            Company CompanyToDelete = CompanyContext.Companies.SingleOrDefault(c => c.Id == Id);
 
             if (CompanyToDelete == null || CompanyToDelete.IsDeleted == true)
             {
