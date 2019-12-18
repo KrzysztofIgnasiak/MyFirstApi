@@ -225,6 +225,10 @@
     <Compile Include="Migrations\201912170823049_adding Companies and Industries.Designer.cs">
       <DependentUpon>201912170823049_adding Companies and Industries.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912181502542_adding tradeNotes.cs" />
+    <Compile Include="Migrations\201912181502542_adding tradeNotes.Designer.cs">
+      <DependentUpon>201912181502542_adding tradeNotes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -235,6 +239,7 @@
     <Compile Include="Models\Industry.cs" />
     <Compile Include="Models\PagingParameterModel.cs" />
     <Compile Include="Models\RoleName.cs" />
+    <Compile Include="Models\TradeNote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -337,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912170823049_adding Companies and Industries.resx">
       <DependentUpon>201912170823049_adding Companies and Industries.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912181502542_adding tradeNotes.resx">
+      <DependentUpon>201912181502542_adding tradeNotes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

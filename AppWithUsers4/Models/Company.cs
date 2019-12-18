@@ -16,5 +16,9 @@ namespace AppWithUsers4.Models
         public ApplicationUser userID { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public List<TradeNote> TradeNotes{ get;set;}
+
+    
     }
 }

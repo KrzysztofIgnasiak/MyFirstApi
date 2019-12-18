@@ -11,6 +11,7 @@ namespace AppWithUsers4.Models
     {
         public DbSet<Company> Companies { get; set; }
         public DbSet<Industry> Industries { get; set; }
+        public DbSet<TradeNote> TradeNotes { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -33,7 +34,11 @@ namespace AppWithUsers4.Models
             builder.Entity<Industry>().Property(u => u.Name).IsRequired();
             builder.Entity<Industry>().Property(u => u.Name).HasMaxLength(50);
 
-           // builder.Entity<Industry>().HasMany(i => i.Companies).WithOptional(c => c.IndustryType);
+            // builder.Entity<Industry>().HasMany(i => i.Companies).WithOptional(c => c.IndustryType);
+            
+            //setting trade notes
+            builder.Entity<TradeNote>().Property(u => u.Text).IsRequired();
+            builder.Entity<Company>().HasMany(c => c.TradeNotes).WithOptional(t => t.CompanyId);
         }
 
         public static ApplicationDbContext Create()
