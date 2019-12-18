@@ -26,7 +26,7 @@ namespace AppWithUsers4.Controllers
         
         // GET/api/Company
         [HttpGet]
-        public IHttpActionResult GetUsers([FromUri]PagingParameterModel paging)
+        public IHttpActionResult GetCompanies([FromUri]PagingParameterModel paging)
         {
             if (paging.PageNumber <= 0)
             {
@@ -131,7 +131,7 @@ namespace AppWithUsers4.Controllers
 
                 CompanyContext.Companies.Add(NewCompany);
                 CompanyContext.SaveChanges();
-                return Ok(NewCompany);
+                return Ok();
             }
         }
 
