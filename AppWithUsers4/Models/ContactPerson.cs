@@ -16,7 +16,7 @@ namespace AppWithUsers4.Models
 
         public string Position { get; set; }
 
-        public Company CompanyId { get; set; }
+        public Company CompanyId_Id { get; set; }
         public ApplicationUser UserId { get; set; }
 
         public bool isDeleted { get; set; }
