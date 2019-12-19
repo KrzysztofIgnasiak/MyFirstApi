@@ -143,7 +143,10 @@ namespace AppWithUsers4.Controllers
             {
                 return BadRequest("invalid data.");
             }
-
+            if (Model == null)
+            {
+                return BadRequest("any information about Company was specified");
+            }
             var Company = CompanyContext.Companies.SingleOrDefault(c => c.Id == Id);
 
             if (Company == null || Company.IsDeleted == true)

@@ -5,9 +5,8 @@ using System.Web;
 
 namespace AppWithUsers4.Models
 {
-    public class ContactPerson
+    public class ContactPersonBindingModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public int? Phone { get; set; }
@@ -15,10 +14,7 @@ namespace AppWithUsers4.Models
         public string Mail { get; set; }
 
         public string Position { get; set; }
-
-        public Company CompanyId { get; set; }
-        public ApplicationUser UserId { get; set; }
-
-        public bool isDeleted { get; set; }
+        
+        public int? CompanyId { get; set; }
     }
 }
