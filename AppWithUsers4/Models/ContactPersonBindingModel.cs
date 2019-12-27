@@ -30,5 +30,7 @@ namespace AppWithUsers4.Models
         public string Position { get; set; }
 
         public int? CompanyId { get; set; }
+        
+        public string UserId { get; set; }
     }
 }

@@ -22,7 +22,9 @@ namespace AppWithUsers4.Controllers
         {
             List<ContactPerson> ContactPeople = ContactPersonContext.ContactPeople.
                 Where(c => c.isDeleted ==false)
-                .Include(c => c.CompanyId).ToList();
+                .Include(c => c.CompanyId)
+                .Include(c => c.UserId)
+                .ToList();
 
             List<ContactPersonGetBindingModel> Models = new List<ContactPersonGetBindingModel>();
 
@@ -36,9 +38,9 @@ namespace AppWithUsers4.Controllers
                 Model.Mail = Person.Mail;
                 Model.Position = Person.Position;
 
-                Company CurrentCompany = Person.CompanyId;
-                Model.CompanyId = CurrentCompany.Id;
-
+                Model.CompanyId = Person.CompanyId.Id;
+                Model.UserId = Person.UserId.Id;
+                
                 Models.Add(Model);
             }
             return Ok(Models);
@@ -62,6 +64,7 @@ namespace AppWithUsers4.Controllers
             else
             {
                 ContactPersonContext.Entry(Person).Reference(c => c.CompanyId).Load();
+                ContactPersonContext.Entry(Person).Reference(c => c.UserId).Load();
                 ContactPersonGetBindingModel Model = new ContactPersonGetBindingModel();
                 Model.Id = Person.Id;
                 Model.Name = Person.Name;
@@ -70,8 +73,13 @@ namespace AppWithUsers4.Controllers
                 Model.Mail = Person.Mail;
                 Model.Position = Person.Position;
 
-                Company CurrentCompany = Person.CompanyId;
-                Model.CompanyId = CurrentCompany.Id;
+                Model.CompanyId = Person.CompanyId.Id;
+                Model.UserId = Person.UserId.Id;
+                //Company CurrentCompany = Person.CompanyId;
+                //Model.CompanyId = CurrentCompany.Id;
+
+              //  ApplicationUser User = Person.UserId;
+
           
 
                 return Ok(Model);
