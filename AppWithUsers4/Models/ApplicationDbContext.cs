@@ -53,7 +53,7 @@ namespace AppWithUsers4.Models
             builder.Entity<ContactPerson>().Property(u => u.Mail).IsRequired();
             builder.Entity<ContactPerson>().Property(u => u.Phone).IsOptional();
 
-            builder.Entity<Company>().HasMany(c => c.ContactPeople).WithOptional(t => t.CompanyId_Id);
+            builder.Entity<Company>().HasMany(c => c.ContactPeople).WithOptional(t => t.CompanyId);
         }
 
         public static ApplicationDbContext Create()

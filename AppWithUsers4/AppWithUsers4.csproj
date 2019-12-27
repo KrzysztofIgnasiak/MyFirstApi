@@ -239,6 +239,10 @@
     <Compile Include="Migrations\201912181839272_adding Contact Person.Designer.cs">
       <DependentUpon>201912181839272_adding Contact Person.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912271102231_not sure.cs" />
+    <Compile Include="Migrations\201912271102231_not sure.Designer.cs">
+      <DependentUpon>201912271102231_not sure.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -364,6 +368,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912181839272_adding Contact Person.resx">
       <DependentUpon>201912181839272_adding Contact Person.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912271102231_not sure.resx">
+      <DependentUpon>201912271102231_not sure.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

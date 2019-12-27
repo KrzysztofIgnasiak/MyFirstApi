@@ -22,19 +22,22 @@ namespace AppWithUsers4.Controllers
         {
             List<ContactPerson> ContactPeople = ContactPersonContext.ContactPeople.
                 Where(c => c.isDeleted ==false)
-                .Include(c => c.CompanyId_Id).ToList();
+                .Include(c => c.CompanyId).ToList();
 
-            List<ContactPersonBindingModel> Models = new List<ContactPersonBindingModel>();
+            List<ContactPersonGetBindingModel> Models = new List<ContactPersonGetBindingModel>();
 
             foreach(ContactPerson Person in ContactPeople)
             {
-                ContactPersonBindingModel Model = new ContactPersonBindingModel();
+                ContactPersonGetBindingModel Model = new ContactPersonGetBindingModel();
+                Model.Id = Person.Id;
                 Model.Name = Person.Name;
                 Model.Surname = Person.Surname;
                 Model.Phone = Person.Phone;
                 Model.Mail = Person.Mail;
                 Model.Position = Person.Position;
-                Model.CompanyId = Convert.ToInt16(Person.CompanyId_Id.ToString());
+
+                Company CurrentCompany = Person.CompanyId;
+                Model.CompanyId = CurrentCompany.Id;
 
                 Models.Add(Model);
             }
@@ -58,14 +61,18 @@ namespace AppWithUsers4.Controllers
             }
             else
             {
-                ContactPersonContext.Entry(Person).Reference(c => c.CompanyId_Id).Load();
-                ContactPersonBindingModel Model = new ContactPersonBindingModel();
+                ContactPersonContext.Entry(Person).Reference(c => c.CompanyId).Load();
+                ContactPersonGetBindingModel Model = new ContactPersonGetBindingModel();
+                Model.Id = Person.Id;
                 Model.Name = Person.Name;
                 Model.Surname = Person.Surname;
                 Model.Phone = Person.Phone;
                 Model.Mail = Person.Mail;
                 Model.Position = Person.Position;
-                Model.CompanyId = Convert.ToInt16(Person.CompanyId_Id.ToString());
+
+                Company CurrentCompany = Person.CompanyId;
+                Model.CompanyId = CurrentCompany.Id;
+          
 
                 return Ok(Model);
                 
@@ -104,7 +111,7 @@ namespace AppWithUsers4.Controllers
                     NewContactPerson.Mail = Model.Mail;
                     NewContactPerson.Position = Model.Position;
 
-                    NewContactPerson.CompanyId_Id = Company;
+                    NewContactPerson.CompanyId = Company;
 
                     string UserId = User.Identity.GetUserId();
                     ApplicationUser AppUser = ContactPersonContext.Users.Single(u => u.Id == UserId);
@@ -146,7 +153,7 @@ namespace AppWithUsers4.Controllers
                     }
                     else
                     {
-                        UpdatePerson.CompanyId_Id = ChangedCompany;
+                        UpdatePerson.CompanyId = ChangedCompany;
                     }
                     UpdatePerson.Name = Model.Name ?? UpdatePerson.Name;
                     UpdatePerson.Surname = Model.Surname ?? UpdatePerson.Surname;

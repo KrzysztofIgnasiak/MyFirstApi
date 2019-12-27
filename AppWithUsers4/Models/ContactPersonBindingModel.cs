@@ -20,6 +20,7 @@ namespace AppWithUsers4.Models
 
     public class ContactPersonGetBindingModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public int? Phone { get; set; }
@@ -28,6 +29,6 @@ namespace AppWithUsers4.Models
 
         public string Position { get; set; }
 
-        public Company CompanyId { get; set; }
+        public int? CompanyId { get; set; }
     }
 }
