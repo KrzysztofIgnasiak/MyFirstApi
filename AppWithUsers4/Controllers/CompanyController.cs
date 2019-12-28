@@ -119,6 +119,7 @@ namespace AppWithUsers4.Controllers
             
         }
 
+
         // GET /api/Company/1
         [HttpGet]
         public IHttpActionResult GetCompany(int Id)

@@ -46,6 +46,37 @@ namespace AppWithUsers4.Controllers
             return Ok(Models);
         }
 
+        //Get /api/ ContactPerson/BySurname
+        [HttpGet]
+        [Route("BySurname")]
+        public IHttpActionResult GetContactPeopleBySurname(string Surname)
+        {
+            List<ContactPerson> ContactPeople = ContactPersonContext.ContactPeople.
+                Where(c => c.isDeleted == false && c.Surname == Surname)
+                .Include(c => c.CompanyId)
+                .Include(c => c.UserId)
+                .ToList();
+
+            List<ContactPersonGetBindingModel> Models = new List<ContactPersonGetBindingModel>();
+
+            foreach (ContactPerson Person in ContactPeople)
+            {
+                ContactPersonGetBindingModel Model = new ContactPersonGetBindingModel();
+                Model.Id = Person.Id;
+                Model.Name = Person.Name;
+                Model.Surname = Person.Surname;
+                Model.Phone = Person.Phone;
+                Model.Mail = Person.Mail;
+                Model.Position = Person.Position;
+
+                Model.CompanyId = Person.CompanyId.Id;
+                Model.UserId = Person.UserId.Id;
+
+                Models.Add(Model);
+            }
+            return Ok(Models);
+        }
+
         // GET /api/ContactPerson/1
         [HttpGet]
         public IHttpActionResult GetContactPerson(int Id)
