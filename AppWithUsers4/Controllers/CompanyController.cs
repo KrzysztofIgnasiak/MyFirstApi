@@ -74,6 +74,51 @@ namespace AppWithUsers4.Controllers
             }
         }
 
+        // GET/api/Company/ByIndustry
+        [HttpGet]
+        [Route("ByIndustry")]
+        public IHttpActionResult GetCompaniesByIndustry(int IndustryId)
+        {
+            //int IndustryId = 2;
+              
+                Industry CurrentIndustry = CompanyContext.Industries.SingleOrDefault(i => i.Id == IndustryId);
+                if (CurrentIndustry == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+
+                    var Companies = CompanyContext.Companies.Where(c => c.IsDeleted == false)
+                        .Where(c => c.IndustryType.Id == IndustryId)
+                        .Include(c => c.userID)
+                        .Include(c => c.IndustryType)
+                        .ToList();
+                    //.Include(c => c.IndustryType)
+
+
+                    List<CompanyViewPublicModel> Models = new List<CompanyViewPublicModel>();
+                    foreach (Company Company in Companies)
+                    {
+                        CompanyViewPublicModel Model = new CompanyViewPublicModel();
+                        Model.Name = Company.Name;
+                        Model.Nip = Company.Nip;
+                        Model.Address = Company.Address;
+                        Model.City = Company.City;
+
+                        ApplicationUser userID = Company.userID;
+                        Model.userID = userID.Id.ToString();
+                        Model.IdustryName = Company.IndustryType.Name;
+                        Model.IndustryId = Company.IndustryType.Id;
+
+                        Models.Add(Model);
+                    }
+
+                    return Ok(Models);
+                }
+            
+        }
+
         // GET /api/Company/1
         [HttpGet]
         public IHttpActionResult GetCompany(int Id)
