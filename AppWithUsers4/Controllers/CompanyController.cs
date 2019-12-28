@@ -51,12 +51,22 @@ namespace AppWithUsers4.Controllers
                         CompanyViewPublicModel Model = new CompanyViewPublicModel();
                         Model.Name = Company.Name;
                         Model.Nip = Company.Nip;
-                        Model.IndustryType = Company.IndustryType;
                         Model.Address = Company.Address;
                         Model.City = Company.City;
+
                         ApplicationUser userID = Company.userID;
                         Model.userID = userID.Id.ToString();
 
+                        if (Company.IndustryType !=null)
+                        {
+                        Model.IdustryName = Company.IndustryType.Name;
+                        Model.IndustryId = Company.IndustryType.Id;
+                        }
+                        else
+                        {
+                        Model.IdustryName = null;
+                        Model.IndustryId = null;
+                        }                 
                         Models.Add(Model);
                 }
 
@@ -83,12 +93,23 @@ namespace AppWithUsers4.Controllers
                 CompanyViewPublicModel Model = new CompanyViewPublicModel();
                 Model.Name = Company.Name;
                 Model.Nip = Company.Nip;
-                Model.IndustryType = Company.IndustryType;
                 Model.Address = Company.Address;
                 Model.City = Company.City;
+
                 ApplicationUser userID = Company.userID;
                 Model.userID = userID.Id.ToString();
- 
+
+                if (Company.IndustryType != null)
+                {
+                    Model.IdustryName = Company.IndustryType.Name;
+                    Model.IndustryId = Company.IndustryType.Id;
+                }
+                else
+                {
+                    Model.IdustryName = null;
+                    Model.IndustryId = null;
+                }
+
                 return Ok(Model);
             }
             
