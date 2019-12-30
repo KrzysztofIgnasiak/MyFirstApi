@@ -32,10 +32,10 @@ namespace AppWithUsers4.Controllers
                     .Where(t => t.CompanyId.Id == Company.Id && t.IsDeleted==false)
                     .Include(t => t.UserId)
                     .ToList();
-                List<TradeNoteViewModel> Models = new List<TradeNoteViewModel>();
+                List<TradeNoteViewBindingModelModel> Models = new List<TradeNoteViewBindingModelModel>();
                 foreach (TradeNote Note in TradeNotes)
                 {
-                    TradeNoteViewModel Model = new TradeNoteViewModel();
+                    TradeNoteViewBindingModelModel Model = new TradeNoteViewBindingModelModel();
                     Model.Id = Note.Id;
                     Model.Text = Note.Text;
                     ApplicationUser userID = Note.UserId;
@@ -49,7 +49,7 @@ namespace AppWithUsers4.Controllers
 
         // POST/api/TradeNote
         [HttpPost]
-        public IHttpActionResult CreateNote([FromBody]TradeNoteAddUpdateBindingModel Model)
+        public IHttpActionResult CreateNote([FromBody]TradeNoteAddBindingModel Model)
         {
             if (ModelState.IsValid == false)
             {
@@ -82,7 +82,7 @@ namespace AppWithUsers4.Controllers
 
         [HttpPut]
         // PUT/api/TradeNote/1
-        public IHttpActionResult UpdateNote(int Id, [FromBody]TradeNoteAddUpdateBindingModel Model)
+        public IHttpActionResult UpdateNote(int Id, [FromBody]TradeNoteUpdateBindingModel Model)
         {
             if (ModelState.IsValid == false)
             {
