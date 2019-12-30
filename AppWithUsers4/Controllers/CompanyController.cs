@@ -49,6 +49,7 @@ namespace AppWithUsers4.Controllers
                 foreach(Company Company in Companies)
                 { 
                         CompanyViewPublicModel Model = new CompanyViewPublicModel();
+                        Model.Id = Company.Id;
                         Model.Name = Company.Name;
                         Model.Nip = Company.Nip;
                         Model.Address = Company.Address;
@@ -101,6 +102,7 @@ namespace AppWithUsers4.Controllers
                     foreach (Company Company in Companies)
                     {
                         CompanyViewPublicModel Model = new CompanyViewPublicModel();
+                        Model.Id = Company.Id;
                         Model.Name = Company.Name;
                         Model.Nip = Company.Nip;
                         Model.Address = Company.Address;
@@ -137,6 +139,7 @@ namespace AppWithUsers4.Controllers
             else
             { 
                 CompanyViewPublicModel Model = new CompanyViewPublicModel();
+                Model.Id = Company.Id;
                 Model.Name = Company.Name;
                 Model.Nip = Company.Nip;
                 Model.Address = Company.Address;
