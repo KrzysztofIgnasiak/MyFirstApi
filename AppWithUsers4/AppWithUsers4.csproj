@@ -210,6 +210,7 @@
     <Compile Include="Controllers\ConctactPersonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndustryController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\TradeNoteController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -246,6 +247,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BindingModels\AccountBindingModels.cs" />
     <Compile Include="Models\BindingModels\AccountViewModels.cs" />
+    <Compile Include="Models\BindingModels\RoleBindingModel.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\BindingModels\CompanyBindingModel.cs" />
