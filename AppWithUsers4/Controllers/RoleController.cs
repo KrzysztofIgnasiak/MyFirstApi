@@ -81,6 +81,58 @@ namespace AppWithUsers4.Controllers
             }
 
         }
+        [Route("AddUserToRole")]
+        [HttpPost]
+        public async Task<IHttpActionResult> AddUserToRole(string Id, string RoleName)
+        {
+            var User = RoleContext.Users.SingleOrDefault(u => u.Id == Id);
+            if (User == null || User.IsDeleted == true)
+            {
+                return NotFound();
+            }
+            var Rolestore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+            var roleManager = new RoleManager<IdentityRole>(Rolestore);
+            var Role = await roleManager.FindByNameAsync(RoleName);
+            if (Role == null)
+            {
+                return NotFound();
+            }
+            await UserManager.AddToRoleAsync(User.Id, RoleName);
+            RoleContext.SaveChanges();
+            return Ok();
+        }
+        [Route("RemoveUserFromRole")]
+        [HttpPost]
+        public async Task<IHttpActionResult> RemoveUserFromRole(string Id, string RoleName)
+        {
+            var User = RoleContext.Users.SingleOrDefault(u => u.Id == Id);
+            if (User == null || User.IsDeleted == true)
+            {
+                return NotFound();
+            }
+            var Rolestore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+            var roleManager = new RoleManager<IdentityRole>(Rolestore);
+            var Role = await roleManager.FindByNameAsync(RoleName);
+            if (Role == null)
+            {
+                return NotFound();
+            }
+            await UserManager.RemoveFromRoleAsync(User.Id, RoleName);
+            RoleContext.SaveChanges();
+            return Ok();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && _userManager != null)
+            {
+                _userManager.Dispose();
+                _userManager = null;
+            }
+
+            base.Dispose(disposing);
+        }
     }
+
 }
 
