@@ -12,7 +12,7 @@ namespace AppWithUsers4.Controllers
 {
     [Authorize]
     [RoutePrefix("api/ContactPerson")]
-    public class ConctactPersonController : ApiController
+    public class ContactPersonController : ApiController
     {
         private ApplicationDbContext ContactPersonContext = new ApplicationDbContext();
 
