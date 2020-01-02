@@ -82,7 +82,7 @@ namespace AppWithUsers4.Controllers
 
         }
         [Route("AddUserToRole")]
-        [HttpPost]
+        [HttpPut]
         public async Task<IHttpActionResult> AddUserToRole(string Id, string RoleName)
         {
             var User = RoleContext.Users.SingleOrDefault(u => u.Id == Id);
@@ -102,7 +102,7 @@ namespace AppWithUsers4.Controllers
             return Ok();
         }
         [Route("RemoveUserFromRole")]
-        [HttpPost]
+        [HttpPut]
         public async Task<IHttpActionResult> RemoveUserFromRole(string Id, string RoleName)
         {
             var User = RoleContext.Users.SingleOrDefault(u => u.Id == Id);
