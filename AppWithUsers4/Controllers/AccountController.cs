@@ -416,7 +416,9 @@ namespace AppWithUsers4.Controllers
 
                     if (User.IsDeleted == false)
                     {
+                        Model.Id = User.Id;
                         Model.NameOfUser = User.NameOfUser;
+                        Model.UserName = User.UserName;
                         Model.Surname = User.Surname;
                         Model.DateofBirth = User.DateofBirth;
                         Model.Email = User.Email;
@@ -442,7 +444,9 @@ namespace AppWithUsers4.Controllers
             else
             {
                 DisplayBindingModel Model = new DisplayBindingModel();
+                Model.Id = User.Id;
                 Model.NameOfUser = User.NameOfUser;
+                Model.UserName = User.UserName;
                 Model.Surname = User.Surname;
                 Model.DateofBirth = User.DateofBirth;
                 Model.Email = User.Email;

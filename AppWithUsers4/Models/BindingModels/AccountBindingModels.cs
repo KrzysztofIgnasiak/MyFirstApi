@@ -95,6 +95,8 @@ namespace AppWithUsers4.Models
 
     public class DisplayBindingModel
     {
+        public string Id { get; set; }
+        public string UserName { get; set; }
         public string NameOfUser { get; set; }
         public string Surname { get; set; }
 
