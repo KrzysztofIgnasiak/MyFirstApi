@@ -32,10 +32,10 @@ namespace AppWithUsers4.Controllers
                     .Where(t => t.CompanyId.Id == Company.Id && t.IsDeleted==false)
                     .Include(t => t.UserId)
                     .ToList();
-                List<TradeNoteViewBindingModelModel> Models = new List<TradeNoteViewBindingModelModel>();
+                List<TradeNoteViewBindingModel> Models = new List<TradeNoteViewBindingModel>();
                 foreach (TradeNote Note in TradeNotes)
                 {
-                    TradeNoteViewBindingModelModel Model = new TradeNoteViewBindingModelModel();
+                    TradeNoteViewBindingModel Model = new TradeNoteViewBindingModel();
                     Model.Id = Note.Id;
                     Model.Text = Note.Text;
                     ApplicationUser userID = Note.UserId;
@@ -45,6 +45,34 @@ namespace AppWithUsers4.Controllers
                 }
                 return Ok(Models);
             }
+        }
+
+        // GET /api/TradeNote/Particular/1
+        [Route("Particular")]
+        [HttpGet]
+        public IHttpActionResult GetTradeNote(int Id)
+        {
+            var TradeNote = TradeNoteContext.TradeNotes.Include(t => t.UserId)
+                .SingleOrDefault(c => c.Id == Id);
+
+
+            if (TradeNote == null || TradeNote.IsDeleted == true)
+            {
+                return NotFound();
+            }
+
+            else
+            {
+                TradeNoteViewBindingModel Model = new TradeNoteViewBindingModel();
+
+                Model.Id = TradeNote.Id;
+                Model.Text = TradeNote.Text;
+                ApplicationUser userID = TradeNote.UserId;
+                Model.UserId = userID.Id.ToString();
+
+                return Ok(Model);
+            }
+
         }
 
         // POST/api/TradeNote

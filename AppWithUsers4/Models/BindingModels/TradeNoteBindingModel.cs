@@ -19,7 +19,7 @@ namespace AppWithUsers4.Models
         public int CompanyId { get; set; }
     }
 
-    public class TradeNoteViewBindingModelModel
+    public class TradeNoteViewBindingModel
     {
         public int Id { get; set; }
         public string Text { get; set;}
