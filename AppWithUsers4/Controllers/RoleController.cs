@@ -82,42 +82,42 @@ namespace AppWithUsers4.Controllers
 
         }
         [Route("AddUserToRole")]
-        [HttpPut]
-        public async Task<IHttpActionResult> AddUserToRole(string Id, string RoleName)
+        [HttpPost]
+        public async Task<IHttpActionResult> AddUserToRole(UserRoleBindingModel Model)
         {
-            var User = RoleContext.Users.SingleOrDefault(u => u.Id == Id);
+            var User = RoleContext.Users.SingleOrDefault(u => u.Id == Model.UserId);
             if (User == null || User.IsDeleted == true)
             {
                 return NotFound();
             }
             var Rolestore = new RoleStore<IdentityRole>(new ApplicationDbContext());
             var roleManager = new RoleManager<IdentityRole>(Rolestore);
-            var Role = await roleManager.FindByNameAsync(RoleName);
+            var Role = await roleManager.FindByNameAsync(Model.RoleName);
             if (Role == null)
             {
                 return NotFound();
             }
-            await UserManager.AddToRoleAsync(User.Id, RoleName);
+            await UserManager.AddToRoleAsync(User.Id, Model.RoleName);
             RoleContext.SaveChanges();
             return Ok();
         }
         [Route("RemoveUserFromRole")]
-        [HttpPut]
-        public async Task<IHttpActionResult> RemoveUserFromRole(string Id, string RoleName)
+        [HttpPost]
+        public async Task<IHttpActionResult> RemoveUserFromRole(UserRoleBindingModel Model)
         {
-            var User = RoleContext.Users.SingleOrDefault(u => u.Id == Id);
+            var User = RoleContext.Users.SingleOrDefault(u => u.Id == Model.UserId);
             if (User == null || User.IsDeleted == true)
             {
                 return NotFound();
             }
             var Rolestore = new RoleStore<IdentityRole>(new ApplicationDbContext());
             var roleManager = new RoleManager<IdentityRole>(Rolestore);
-            var Role = await roleManager.FindByNameAsync(RoleName);
+            var Role = await roleManager.FindByNameAsync(Model.RoleName);
             if (Role == null)
             {
                 return NotFound();
             }
-            await UserManager.RemoveFromRoleAsync(User.Id, RoleName);
+            await UserManager.RemoveFromRoleAsync(User.Id, Model.RoleName);
             RoleContext.SaveChanges();
             return Ok();
         }

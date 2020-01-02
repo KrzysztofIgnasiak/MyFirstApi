@@ -248,6 +248,7 @@
     <Compile Include="Models\BindingModels\AccountBindingModels.cs" />
     <Compile Include="Models\BindingModels\AccountViewModels.cs" />
     <Compile Include="Models\BindingModels\RoleBindingModel.cs" />
+    <Compile Include="Models\BindingModels\UserRoleBindingModel.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\BindingModels\CompanyBindingModel.cs" />
