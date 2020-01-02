@@ -54,7 +54,15 @@ namespace AppWithUsers4.Controllers
 
             return Ok(roles);
         }
+        [Route("CurrentUserRole")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetUserRolesAsync()
+        {
+            var UserID = User.Identity.GetUserId();
+            var RolesForUser = await UserManager.GetRolesAsync(UserID);
 
+            return Ok(RolesForUser);
+        }
         [Route("create")]
         public async Task<IHttpActionResult> Create(CreateRoleBindingModel model)
         {
@@ -81,6 +89,7 @@ namespace AppWithUsers4.Controllers
             }
 
         }
+        
         [Route("AddUserToRole")]
         [HttpPost]
         public async Task<IHttpActionResult> AddUserToRole(UserRoleBindingModel Model)
