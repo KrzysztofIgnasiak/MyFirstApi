@@ -54,14 +54,16 @@ namespace AppWithUsers4.Controllers
 
             return Ok(roles);
         }
-        [Route("CurrentUserRole")]
+        [Route("IsAdmin")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetUserRolesAsync()
+        public IHttpActionResult IsAdmin()
         {
+            IsAdminBindingModel Model = new IsAdminBindingModel();
             var UserID = User.Identity.GetUserId();
-            var RolesForUser = await UserManager.GetRolesAsync(UserID);
-
-            return Ok(RolesForUser);
+            //var RolesForUser = await UserManager.GetRolesAsync(UserID);
+            //var IsInRole =  UserManager.IsInRole(UserID, "admin");
+            Model.IsAdmin = UserManager.IsInRole(UserID, "admin");
+            return Ok(Model);
         }
         [Route("create")]
         public async Task<IHttpActionResult> Create(CreateRoleBindingModel model)
