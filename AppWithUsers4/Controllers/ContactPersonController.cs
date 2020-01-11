@@ -183,10 +183,10 @@ namespace AppWithUsers4.Controllers
                 {
                     return BadRequest("The Person with this id does not exist");
                 }
-                if(Model.CompanyId != null)
+                if (Model.CompanyId != null)
                 {
                     Company ChangedCompany = ContactPersonContext.Companies.SingleOrDefault(c => c.Id == Id);
-                    if(ChangedCompany == null)
+                    if (ChangedCompany == null)
                     {
                         return BadRequest("The Company with given Id does not exist");
                     }
@@ -194,15 +194,16 @@ namespace AppWithUsers4.Controllers
                     {
                         UpdatePerson.CompanyId = ChangedCompany;
                     }
-                    UpdatePerson.Name = Model.Name ?? UpdatePerson.Name;
-                    UpdatePerson.Surname = Model.Surname ?? UpdatePerson.Surname;
-                    UpdatePerson.Phone = Model.Phone ?? UpdatePerson.Phone;
-                    UpdatePerson.Mail = Model.Mail ?? UpdatePerson.Mail;
-                    UpdatePerson.Position = Model.Position ?? UpdatePerson.Position;
+                }
+             UpdatePerson.Name = Model.Name ?? UpdatePerson.Name;
+             UpdatePerson.Surname = Model.Surname ?? UpdatePerson.Surname;
+             UpdatePerson.Phone = Model.Phone ?? UpdatePerson.Phone;
+             UpdatePerson.Mail = Model.Mail ?? UpdatePerson.Mail;
+             UpdatePerson.Position = Model.Position ?? UpdatePerson.Position;
 
                     ContactPersonContext.SaveChanges();
 
-                }
+                
                 return Ok();
             }
         }

@@ -401,8 +401,8 @@ namespace AppWithUsers4.Controllers
             }
             else
             {
-                var Users = CustomerContext.Users.
-                    OrderBy(u => u.UserName)
+                var Users = CustomerContext.Users.Where(u => u.IsDeleted == false)
+                    .OrderBy(u => u.UserName)
                     .AsQueryable()
                     .Skip((Paging.PageNumber - 1) * Paging.PageSize)
                     .Take(Paging.PageSize).ToList();
@@ -414,8 +414,7 @@ namespace AppWithUsers4.Controllers
                 {
                     DisplayBindingModel Model = new DisplayBindingModel();
 
-                    if (User.IsDeleted == false)
-                    {
+                    
                         Model.Id = User.Id;
                         Model.NameOfUser = User.NameOfUser;
                         Model.UserName = User.UserName;
@@ -424,7 +423,7 @@ namespace AppWithUsers4.Controllers
                         Model.Email = User.Email;
 
                         Models.Add(Model);
-                    }
+                    
                 }
 
                 return Ok(Models);

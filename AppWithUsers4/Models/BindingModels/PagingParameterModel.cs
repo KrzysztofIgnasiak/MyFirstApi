@@ -11,7 +11,7 @@ namespace AppWithUsers4.Models
 
         public int PageNumber { get; set; } = 1;
 
-        public int _PageSize { get; set; } = 1;
+        public int _PageSize { get; set; } = 10;
 
         public int PageSize
         {
