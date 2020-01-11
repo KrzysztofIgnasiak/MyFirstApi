@@ -481,13 +481,7 @@ namespace AppWithUsers4.Controllers
             {
                 return BadRequest("invalid data.");
             }
-            string CurrentId = User.Identity.GetUserId();
-            if(Id !=CurrentId)
-            {
-                return BadRequest("You can change only your account");
-            }
-
-
+          
             ApplicationUser UsertoChange = CustomerContext.Users.Single(u => u.Id == Id);
 
             if (UsertoChange == null || UsertoChange.IsDeleted == true)
