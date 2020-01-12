@@ -166,7 +166,7 @@ namespace AppWithUsers4.Controllers
 
         // PUT /api/ContactPerson/1
         [HttpPut]
-        public IHttpActionResult UpdateContactPerson(int Id, ContactPersonBindingModel Model)
+        public IHttpActionResult UpdateContactPerson(int Id, ContactPersonUpdateBindingModel Model)
         {
             if (ModelState.IsValid == false)
             {
@@ -185,10 +185,11 @@ namespace AppWithUsers4.Controllers
                 }
                 if (Model.CompanyId != null)
                 {
-                    Company ChangedCompany = ContactPersonContext.Companies.SingleOrDefault(c => c.Id == Id);
-                    if (ChangedCompany == null)
+                    Company ChangedCompany = ContactPersonContext.Companies.SingleOrDefault(c => c.Id == Model.CompanyId);
+                    if (ChangedCompany == null || ChangedCompany.IsDeleted ==true)
                     {
-                        return BadRequest("The Company with given Id does not exist");
+                          return BadRequest("The Company with given Id does not exist");
+                        //UpdatePerson.CompanyId = ChangedCompany;
                     }
                     else
                     {
@@ -201,7 +202,7 @@ namespace AppWithUsers4.Controllers
              UpdatePerson.Mail = Model.Mail ?? UpdatePerson.Mail;
              UpdatePerson.Position = Model.Position ?? UpdatePerson.Position;
 
-                    ContactPersonContext.SaveChanges();
+              ContactPersonContext.SaveChanges();
 
                 
                 return Ok();
