@@ -333,8 +333,17 @@ namespace AppWithUsers4.Controllers
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
             var Rolestore = new RoleStore<IdentityRole>(new ApplicationDbContext());
             var roleManager = new RoleManager<IdentityRole>(Rolestore);
-            await roleManager.CreateAsync(new IdentityRole(RoleName.normalUser));
-            await UserManager.AddToRoleAsync(user.Id, RoleName.normalUser);
+
+            if (user.NameOfUser == "admin")
+            {
+                await roleManager.CreateAsync(new IdentityRole(RoleName.admin));
+                await UserManager.AddToRoleAsync(user.Id, RoleName.admin);
+            }
+            else
+            {
+                await roleManager.CreateAsync(new IdentityRole(RoleName.normalUser));
+                await UserManager.AddToRoleAsync(user.Id, RoleName.normalUser);
+            }
 
 
             if (!result.Succeeded)
